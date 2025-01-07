@@ -2,6 +2,7 @@
 # denote eg. files shared by the jobs.
 # Paths are to be relative to the root of the project.
 REGISTRATIONS_FILE="./data/registration_dates.tsv"
+FIRST_EDITS_FILE="./data/first_edits.tsv"
 
 
 # Ensures that all the required directories exist.
