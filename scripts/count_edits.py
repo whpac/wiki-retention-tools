@@ -1,6 +1,7 @@
 import argparse
 import gzip
 import mwxml
+import psutil
 from collections import defaultdict
 from datetime import datetime, timedelta
 from mwtypes import Timestamp
@@ -41,6 +42,8 @@ def makeBounds(refPointFile: str, startOffset: timedelta, endOffset: timedelta) 
 bounds = makeBounds(args.bounds_ref_file, timedelta(days=args.lower_bound), timedelta(days=args.upper_bound))
 dump = mwxml.Dump.from_file(gzip.open(args.input_file))
 
+proc = psutil.Process() # For monitoring the memory usage
+
 edit_counts = defaultdict(int)
 pages = 0
 revisions = 0
@@ -67,7 +70,8 @@ for page in dump.pages:
         edit_counts[user_id] += 1
     
     if pages % args.report_freq == 0:
-        print(f'Processed {pages} pages ({revisions} revisions in total)')
+        mem_used = proc.memory_info().rss / (2**20)
+        print(f'Processed {pages} pages ({revisions} revisions in total); memory: {mem_used:.2f} MB')
 
 with open(args.output_file, 'w', encoding='utf-8') as f:
     f.write('user_id\tnum_edits\n')

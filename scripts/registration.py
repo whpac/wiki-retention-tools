@@ -1,6 +1,7 @@
 import argparse
 import gzip
 import mwxml
+import psutil
 import re
 
 parser = argparse.ArgumentParser()
@@ -11,6 +12,8 @@ args = parser.parse_args()
 
 dump = mwxml.Dump.from_file(gzip.open(args.input_file))
 
+proc = psutil.Process() # For monitoring the memory usage
+
 with open(args.output_file, 'w', encoding='utf-8') as f:
     f.write('user_id\ttimestamp\tlog_id\tmethod\n')
     items = 0
@@ -18,7 +21,8 @@ with open(args.output_file, 'w', encoding='utf-8') as f:
     for log_item in dump.log_items:
         items += 1
         if items % args.report_freq == 0:
-            print(f'Processed {items} log items (including {user_creations} user creations)')
+            mem_used = proc.memory_info().rss / (2**20)
+            print(f'Processed {items} log items (including {user_creations} user creations); memory: {mem_used:.2f} MB')
 
         # We want only user creations
         if log_item.type != 'newusers':
