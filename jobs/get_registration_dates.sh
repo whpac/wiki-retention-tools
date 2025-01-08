@@ -20,6 +20,9 @@ LOG_DUMP=$(dump_path $WIKI $DUMP_DATE "pages-logging.xml.gz")
 toolforge jobs run registration-dates \
     --command "cd $(pwd) && ~/.venv/bin/python ./scripts/registration.py $LOG_DUMP $REGISTRATIONS_FILE -f 5000" \
     --image python3.11 \
-    --mem 4Gi
+    --mem 4Gi \
+    --cpu 1 \
+    --filelog-stdout $(pwd)/logs/registration-dates.out \
+    --filelog-stderr $(pwd)/logs/registration-dates.err
 
 popd > /dev/null
