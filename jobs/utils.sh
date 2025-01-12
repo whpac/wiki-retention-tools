@@ -6,6 +6,7 @@ FIRST_EDITS_FILE="./data/first_edits.tsv"
 COUNTS_FILE_REG1D="./data/edit_counts.reg1d.tsv"
 COUNTS_FILE_REGM2="./data/edit_counts.regm2.tsv"
 COUNTS_FILE_1EM2="./data/edit_counts.1em2.tsv"
+BOTS_FILE="./data/bots.tsv"
 
 
 # Ensures that all the required directories exist.
