@@ -1,6 +1,7 @@
 import argparse
 import gzip
 import mwxml
+import phpserialize
 import psutil
 import re
 
@@ -38,12 +39,16 @@ with open(args.output_file, 'w', encoding='utf-8') as f:
         created_user_id = None
         if params is None or params == '':
             created_user_id = log_item.user.id
-        elif ':' not in params:
+        elif re.match(r'^\d+$', params):
             created_user_id = int(params)
         else:
-            match = re.search(r'::userid";i:(\d+);', params)
-            if match:
-                created_user_id = int(match.group(1))
+            try:
+                # That's not an optimal solution, let's ultimately find a deserializer for strings
+                params = phpserialize.loads(params.encode('utf-8'), decode_strings=True)
+                if '4::userid' in params:
+                    created_user_id = params['4::userid']
+            except Exception as e:
+                print(f'Failed to unserialize params: `{params}`: {e}')
 
         if created_user_id is None:
             continue

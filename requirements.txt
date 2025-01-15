@@ -1,3 +1,4 @@
 mwxml==0.3.4
 psutil==6.1.1
 sqlparse==0.5.3
+phpserialize==1.3
