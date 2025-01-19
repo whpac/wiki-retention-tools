@@ -23,6 +23,7 @@ toolforge jobs run first-edits \
     --mem 2Gi \
     --cpu 1 \
     --filelog-stdout $(pwd)/logs/first-edits.out \
-    --filelog-stderr $(pwd)/logs/first-edits.err
+    --filelog-stderr $(pwd)/logs/first-edits.err \
+    --emails onfinish
 
 popd > /dev/null

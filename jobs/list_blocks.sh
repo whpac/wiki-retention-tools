@@ -23,6 +23,7 @@ toolforge jobs run blocks \
     --mem 4Gi \
     --cpu 1 \
     --filelog-stdout $(pwd)/logs/blocks.out \
-    --filelog-stderr $(pwd)/logs/blocks.err
+    --filelog-stderr $(pwd)/logs/blocks.err \
+    --emails onfinish
 
 popd > /dev/null

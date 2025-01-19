@@ -23,6 +23,7 @@ toolforge jobs run registration-dates \
     --mem 4Gi \
     --cpu 1 \
     --filelog-stdout $(pwd)/logs/registration-dates.out \
-    --filelog-stderr $(pwd)/logs/registration-dates.err
+    --filelog-stderr $(pwd)/logs/registration-dates.err \
+    --emails onfinish
 
 popd > /dev/null

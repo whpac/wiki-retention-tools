@@ -24,6 +24,7 @@ toolforge jobs run list-bots \
     --mem 256Mi \
     --cpu 1 \
     --filelog-stdout $(pwd)/logs/list-bots.out \
-    --filelog-stderr $(pwd)/logs/list-bots.err
+    --filelog-stderr $(pwd)/logs/list-bots.err \
+    --emails onfinish
 
 popd > /dev/null

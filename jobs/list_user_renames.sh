@@ -23,6 +23,7 @@ toolforge jobs run user-renames \
     --mem 4Gi \
     --cpu 1 \
     --filelog-stdout $(pwd)/logs/user-renames.out \
-    --filelog-stderr $(pwd)/logs/user-renames.err
+    --filelog-stderr $(pwd)/logs/user-renames.err \
+    --emails onfinish
 
 popd > /dev/null

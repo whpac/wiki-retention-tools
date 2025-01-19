@@ -44,6 +44,7 @@ toolforge jobs run edit-counter \
     --mem 2Gi \
     --cpu 1 \
     --filelog-stdout $(pwd)/logs/edit-counter.out \
-    --filelog-stderr $(pwd)/logs/edit-counter.err
+    --filelog-stderr $(pwd)/logs/edit-counter.err \
+    --emails onfinish
 
 popd > /dev/null
