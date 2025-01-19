@@ -8,6 +8,7 @@ COUNTS_FILE_REGM2="./data/edit_counts.regm2.tsv"
 COUNTS_FILE_1EM2="./data/edit_counts.1em2.tsv"
 BOTS_FILE="./data/bots.tsv"
 BLOCKS_FILE="./data/blocks.tsv"
+RENAMES_FILE="./data/user_renames.tsv"
 
 
 # Ensures that all the required directories exist.
