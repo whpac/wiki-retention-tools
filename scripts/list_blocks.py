@@ -38,7 +38,7 @@ dump = mwxml.Dump.from_file(gzip.open(args.input_file))
 proc = psutil.Process() # For monitoring the memory usage
 
 with open(args.output_file, 'w', encoding='utf-8') as f:
-    f.write('user_name\ttimestamp\tblock_duration\tlog_id\tmethod\n')
+    f.write('user_name\ttimestamp\tblock_duration\tblock_end\tlog_id\tmethod\n')
     items = 0
     blocks = 0
     for log_item in dump.log_items:
