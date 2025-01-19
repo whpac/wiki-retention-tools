@@ -86,11 +86,11 @@ with open(args.output_file, 'w', encoding='utf-8') as f:
                     block_duration_sanitized = re.sub(r'^(Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s*', '', block_duration)
                     block_duration_sanitized = re.sub(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)', monthToNumber, block_duration_sanitized)
                     block_end_date = datetime.strptime(block_duration_sanitized, '%d %m %Y %H:%M:%S %Z')
+                    block_end_date = block_end_date.strftime('%Y-%m-%dT%H:%M:%SZ')
                 except ValueError:
                     block_span = parseRelativeTime(block_duration)
-                    block_start_date = datetime.fromtimestamp(log_item.timestamp.unix())
-                    block_end_date = block_start_date + block_span
-                block_end_date = block_end_date.strftime('%Y-%m-%dT%H:%M:%SZ')
+                    block_end_date = log_item.timestamp + block_span.total_seconds()
+                    block_end_date = block_end_date.long_format()
 
         f.write(f'{blocked_username}\t{log_item.timestamp.long_format()}\t{block_duration}\t{block_end_date}\t{log_item.id}\t{log_item.action}\n')
 
