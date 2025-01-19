@@ -32,7 +32,8 @@ with open(args.output_file, 'w', encoding='utf-8') as f_out:
             fields = line.strip().split('\t')
 
             if i == 1:
-                f_out.write(f'user_id\t{'\t'.join(fields[1:])}\n')
+                rest_header = '\t'.join(fields[1:])
+                f_out.write(f'user_id\t{rest_header}\n')
                 continue # Skip the header
 
             user_name = fields[0]
@@ -41,5 +42,6 @@ with open(args.output_file, 'w', encoding='utf-8') as f_out:
             if user_id is None:
                 print(f'User not found: {user_name}')
                 continue
-
-            f_out.write(f'{user_id}\t{'\t'.join(fields[1:])}\n')
+            
+            rest_fields = '\t'.join(fields[1:])
+            f_out.write(f'{user_id}\t{rest_fields}\n')

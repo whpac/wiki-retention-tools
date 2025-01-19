@@ -77,9 +77,14 @@ with open(args.output_file, 'w', encoding='utf-8') as f:
         elif block_duration in INFINITE_DESIGNATORS:
             block_end_date = 'infinity'
         else:
-            try:
+            if re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z?$', block_duration):
+                if not block_duration.endswith('Z'):
+                    block_duration += 'Z'
+                block_end_date = block_duration
+            elif re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$', block_duration):
                 block_end_date = datetime.strptime(block_duration, '%Y-%m-%dT%H:%M:%SZ')
-            except ValueError:
+                block_end_date = block_end_date.strftime('%Y-%m-%dT%H:%M:%SZ')
+            else:
                 try:
                     # Working with locales is non-trivial, so replace some words with numbers
                     # to make life easier on non-English machines

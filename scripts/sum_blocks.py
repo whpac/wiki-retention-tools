@@ -54,7 +54,10 @@ with open(args.output_file, 'w', encoding='utf-8') as f_out:
                 upper_bound = datetime.max
 
             total_duration = timedelta()
-            for block_start, block_end in batched(fields[1:], 2):
+            for i in range(1, len(fields), 2):
+                block_start = fields[i]
+                block_end = fields[i + 1]
+
                 block_start = datetime.strptime(block_start, '%Y-%m-%dT%H:%M:%SZ')
                 if block_start > upper_bound:
                     break
