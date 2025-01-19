@@ -8,6 +8,10 @@ COUNTS_FILE_REGM2="./data/edit_counts.regm2.tsv"
 COUNTS_FILE_1EM2="./data/edit_counts.1em2.tsv"
 BOTS_FILE="./data/bots.tsv"
 BLOCKS_FILE="./data/blocks.tsv"
+BLOCKS_FILE_USERS="./data/blocks_users.tsv"
+BLOCKS_FILE_USERIDS="./data/blocks_userids.tsv"
+BLOCKS_FILE_AGG="./data/blocks_agg.tsv"
+BLOCKS_FILE_1EM2="./data/blocks.1em2.tsv"
 RENAMES_FILE="./data/user_renames.tsv"
 
 
