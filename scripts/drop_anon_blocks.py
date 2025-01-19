@@ -31,4 +31,8 @@ with open(args.output_file, 'w', encoding='utf-8') as f:
             if user_name.startswith('~20'):
                 continue
 
+            # Drop what seems to be a reminiscent of old autoblocks that were unblocked
+            if user_name.startswith('#'):
+                continue
+
             f.write(line)
