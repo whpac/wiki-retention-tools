@@ -16,7 +16,7 @@ dump = mwxml.Dump.from_file(gzip.open(args.input_file))
 proc = psutil.Process() # For monitoring the memory usage
 
 with open(args.output_file, 'w', encoding='utf-8') as f:
-    f.write('old_name\ttimestamp\tnew_name\n')
+    f.write('old_name\ttimestamp\tnew_name\tlog_id\n')
     items = 0
     user_renames = 0
     for log_item in dump.log_items:
@@ -60,6 +60,6 @@ with open(args.output_file, 'w', encoding='utf-8') as f:
         if user_old_name is None:
             continue
 
-        f.write(f'{user_old_name}\t{log_item.timestamp.long_format()}\t{user_new_name}\n')
+        f.write(f'{user_old_name}\t{log_item.timestamp.long_format()}\t{user_new_name}\t{log_item.id}\n')
 
 print(f'Processing complete.')
