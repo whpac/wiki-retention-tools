@@ -16,7 +16,7 @@ dump = mwxml.Dump.from_file(gzip.open(args.input_file))
 proc = psutil.Process() # For monitoring the memory usage
 
 with open(args.output_file, 'w', encoding='utf-8') as f:
-    f.write('user_id\ttimestamp\tlog_id\tmethod\n')
+    f.write('user_id\ttimestamp\tlog_id\tmethod\tuser_name\n')
     items = 0
     user_creations = 0
     for log_item in dump.log_items:
@@ -37,22 +37,26 @@ with open(args.output_file, 'w', encoding='utf-8') as f:
         params = log_item.params
 
         created_user_id = None
+        created_user_name = None # Stores the original username, might need to account for user renames
         if params is None or params == '':
             created_user_id = log_item.user.id
+            created_user_name = log_item.user.text
         elif re.match(r'^\d+$', params):
             created_user_id = int(params)
+            created_user_name = log_item.page.title
         else:
             try:
                 # That's not an optimal solution, let's ultimately find a deserializer for strings
                 params = phpserialize.loads(params.encode('utf-8'), decode_strings=True)
                 if '4::userid' in params:
                     created_user_id = params['4::userid']
+                    created_user_name = log_item.page.title
             except Exception as e:
                 print(f'Failed to unserialize params: `{params}`: {e}')
 
         if created_user_id is None:
             continue
 
-        f.write(f'{created_user_id}\t{log_item.timestamp.long_format()}\t{log_item.id}\t{log_item.action}\n')
+        f.write(f'{created_user_id}\t{log_item.timestamp.long_format()}\t{log_item.id}\t{log_item.action}\t{created_user_name}\n')
 
 print(f'Processing complete.')
